@@ -1,0 +1,15 @@
+{
+  "name": "vectorize-pixelart",
+  "version": "1.0.0",
+  "description": "Convert raster pixel art graphics to vector",
+  "main": "vectorize-pixelart.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sergii Zasenko",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "pngjs": "^3.4.0",
+    "svgjs": "^2.6.2"
+  }
+}
