@@ -4,6 +4,7 @@ var fs = require('fs'),
     PNG = require('pngjs').PNG,
     SVG = require('svgjs');
 
+let pixelMultiplier = 4;
 let inputFileName = process.argv[2];
 let outputFileName = process.argv[3];
 
@@ -13,7 +14,7 @@ let vectorOut = fs.createWriteStream(outputFileName);
 function writeSVGHeader(height, width) {
     vectorOut.write(
 `<?xml version="1.0" encoding="UTF-8" ?>
-<svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
+<svg width="${width * pixelMultiplier}" height="${height * pixelMultiplier}" xmlns="http://www.w3.org/2000/svg">
 `);
 }
 
@@ -22,15 +23,16 @@ function writeSVGFooter() {
 }
 
 function writeSVGPixel(y, x, red, green, blue, alpha) {
+    if (alpha < 255)
+        return;
+
     vectorOut.write(
-`    <rect x="${x}" y="${y}" width="1" height="1" style="fill:rgb(${red}, ${green}, ${blue})" />
+`    <rect x="${x * pixelMultiplier}" y="${y * pixelMultiplier}" width="${1 * pixelMultiplier}" height="${1 * pixelMultiplier}" style="fill:rgb(${red}, ${green}, ${blue})" />
 `);
 }
 
 fs.createReadStream(inputFileName)
-    .pipe(new PNG({
-        filterType: 4
-    }))
+    .pipe(new PNG())
     .on('parsed', function() {
 
         writeSVGHeader(this.height, this.width);
