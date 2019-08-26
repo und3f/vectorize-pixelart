@@ -97,11 +97,5 @@ fs.createReadStream(inputFileName)
         vectorOut.write(svg.path(contour, pixel));
       })
 
-      /*
-      for (let i = 0; i < this.height; i++)
-        for (let j = 0; j < this.width; j++)
-          vectorOut.write(svg.pixel(i, j, image.getPixel(i, j)));
-      */
-
       vectorOut.write(svg.footer());
     });
