@@ -1,48 +1,107 @@
 'use strict';
 
-var fs = require('fs'),
-    PNG = require('pngjs').PNG,
-    SVG = require('svgjs');
+var fs              = require('fs'),
+    PNG             = require('pngjs').PNG,
+    ContourTracing  = require('./contour-tracing');
 
-let pixelMultiplier = 4;
+const targetSize = 2 ** 23;
 let inputFileName = process.argv[2];
 let outputFileName = process.argv[3];
 
-// TODO check files exists
-let vectorOut = fs.createWriteStream(outputFileName);
-
-function writeSVGHeader(height, width) {
-    vectorOut.write(
-`<?xml version="1.0" encoding="UTF-8" ?>
-<svg width="${width * pixelMultiplier}" height="${height * pixelMultiplier}" xmlns="http://www.w3.org/2000/svg">
-`);
+function SVG(height, width, _multiplier) {
+  this.height = height;
+  this.width = width;
+  this.multiplier = _multiplier == null ? 1 : _multiplier
 }
 
-function writeSVGFooter() {
-    vectorOut.write("</svg>\n");
+SVG.prototype.header = function() {
+  return `\
+<?xml version="1.0" encoding="UTF-8" ?>
+<svg width="${this.width * this.multiplier}" \
+height="${this.height * this.multiplier}" xmlns="http://www.w3.org/2000/svg">
+`;
 }
 
-function writeSVGPixel(y, x, red, green, blue, alpha) {
-    if (alpha < 255)
+SVG.prototype.footer = function() {
+    return "</svg>\n";
+}
+
+SVG.prototype.pixel = function (y, x, pixel) {
+    if (pixel[3] < 255)
         return;
 
-    vectorOut.write(
-`    <rect x="${x * pixelMultiplier}" y="${y * pixelMultiplier}" width="${1 * pixelMultiplier}" height="${1 * pixelMultiplier}" style="fill:rgb(${red}, ${green}, ${blue})" />
-`);
+    let rgb = pixel.join(", ");
+    return `\
+    <rect x="${x * this.multiplier}" y="${y * this.multiplier}" \
+width="${1 * this.multiplier}" height="${1 * this.multiplier}" \
+style="fill:rgba(${rgb})" />\n`
+}
+
+SVG.prototype.path = function(contour, pixel) {
+  let m = this.multiplier;
+  let rgb = pixel.join(", ");
+
+  let move = contour.shift();
+  let path = `  <path d="M ${move[1] * m} ${move[0] * m}`;
+  for (let i in contour) {
+    path += ` L${contour[i][1] * m} ${contour[i][0] * m}`;
+  }
+  path += ` Z" style="fill:rgb(${rgb})" />\n`
+
+  return path;
+}
+
+const BYTES_PER_PIXEL = 4;
+
+function PngImageData(png) {
+  this.png = png;
+  this.width = this.png.width;
+  this.height = this.png.height;
+  this.data = png.data;
+}
+
+PngImageData.prototype.comparePixels = function (y1, x1, y2, x2) {
+  let pixels = this.data;
+  let offset1 = (y1 * this.width + x1) * BYTES_PER_PIXEL;
+  let offset2 = (y2 * this.width + x2) * BYTES_PER_PIXEL;
+
+  for (let i = 0; i < BYTES_PER_PIXEL; i++) {
+    if (pixels[offset1 + i] !== pixels[offset2 + i])
+      return false;
+  }
+
+  return true;
+}
+
+PngImageData.prototype.getPixel = function (y, x) {
+  let offset = (y * this.width + x) * BYTES_PER_PIXEL;
+  return this.data.slice(offset, offset + BYTES_PER_PIXEL);
 }
 
 fs.createReadStream(inputFileName)
     .pipe(new PNG())
     .on('parsed', function() {
 
-        writeSVGHeader(this.height, this.width);
+      // TODO check files exists
+      let vectorOut = fs.createWriteStream(outputFileName);
 
-        for (var y = 0; y < this.height; y++) {
-            for (var x = 0; x < this.width; x++) {
-                var idx = (this.width * y + x) << 2;
-                writeSVGPixel(y, x, this.data[idx], this.data[idx+1],this.data[idx+2], this.data[idx+3]);
-            }
-        }
+      let pixelMultiplier = Math.sqrt(targetSize / (this.height * this.width));
 
-        writeSVGFooter();
+      let image = new PngImageData(this);
+      let svg = new SVG(this.height, this.width, pixelMultiplier);
+
+      vectorOut.write(svg.header());
+
+      let tracer = new ContourTracing(image);
+      tracer.traceContours((contour, pixel) => {
+        vectorOut.write(svg.path(contour, pixel));
+      })
+
+      /*
+      for (let i = 0; i < this.height; i++)
+        for (let j = 0; j < this.width; j++)
+          vectorOut.write(svg.pixel(i, j, image.getPixel(i, j)));
+      */
+
+      vectorOut.write(svg.footer());
     });

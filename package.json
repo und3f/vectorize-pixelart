@@ -6,10 +6,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "directories": {
+    "lib": "lib",
+    "example": "examples",
+    "test": "test"
+  },
   "author": "Sergii Zasenko",
   "license": "GPL-3.0-or-later",
   "dependencies": {
-    "pngjs": "^3.4.0",
-    "svgjs": "^2.6.2"
+    "pngjs": "^3.4.0"
   }
 }
