@@ -1,6 +1,6 @@
 {
   "name": "vectorize-pixelart",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Convert raster pixel art graphics to vector",
   "main": "vectorize-pixelart.js",
   "scripts": {
@@ -15,5 +15,22 @@
   "license": "GPL-3.0-or-later",
   "dependencies": {
     "pngjs": "^3.4.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/und3f/vectorize-pixelart.git"
+  },
+  "bin": {
+      "vectorize-pixelart": "vectorize-pixelart.js"
+  },
+  "keywords": [
+    "vector",
+    "svg",
+    "convert"
+  ],
+  "bugs": {
+    "url": "https://github.com/und3f/vectorize-pixelart/issues"
+  },
+  "homepage": "https://github.com/und3f/vectorize-pixelart#readme"
 }

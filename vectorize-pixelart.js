@@ -1,4 +1,6 @@
-'use strict';
+#!/usr/bin/env node
+
+"use strict";
 
 var fs              = require('fs'),
     PNG             = require('pngjs').PNG,
@@ -8,6 +10,12 @@ var fs              = require('fs'),
 const targetSize = 2 ** 23;
 let inputFileName = process.argv[2];
 let outputFileName = process.argv[3];
+
+if (process.argv.length < 4) {
+    process.stdout.write(
+`usage: ${process.argv[1]} <input png image> <output svg vector>\n`)
+    process.exit(1);
+}
 
 fs.createReadStream(inputFileName)
     .pipe(new PNG())

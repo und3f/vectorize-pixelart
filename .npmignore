@@ -1,0 +1,8 @@
+*.png
+*.svg
+browser.js
+debug.txt
+other-code.js
+image-data.js
+bundle.js*
+*.tgz
