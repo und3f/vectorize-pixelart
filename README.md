@@ -13,6 +13,10 @@ You may vectorize PNG image to SVG using next command:
 
     $ vectorize-pixelart Input.png Output.svg
 
+Also EPS output is supported:
+
+    $ vectorize-pixelart Input.png Output.eps
+
 # Online web usage
 
 The package has been build with a [Browserify](browserify.org) version and
@@ -42,18 +46,18 @@ var fs  = require('fs'),
 // PNGImageData provides transparent pixel retrieving/comparasion interface
 let image = new paUtils.PNGImageData(PNG.sync.read(fs.readFileSync('in.png')));
 
-// SVG composer
-let svg = new paUtils.SVG(image.height, image.width);
+// Vector composer
+let composer = new paUtils.SVG(image.height, image.width);
 
-process.stdout.write(svg.header());
+process.stdout.write(composer.header());
 
 let tracer = new ContourTracing(image);
 tracer.traceContours((contour, pixel) => {
     // Output next traced contour
-    process.stdout.write(svg.path(contour, pixel));
+    process.stdout.write(composer.path(contour, pixel));
 })
 
-process.stdout.write(svg.footer());
+process.stdout.write(composer.footer());
 ```
 
 ## Class: ContourTracing
