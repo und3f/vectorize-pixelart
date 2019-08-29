@@ -33,9 +33,9 @@ SVG.prototype.path = function(contour, pixel) {
   let m = this.multiplier;
   let rgb = pixel.join(", ");
 
-  let move = contour.shift();
+  let move = contour[0]
   let path = `  <path d="M ${move[1] * m} ${move[0] * m}`;
-  for (let i in contour) {
+  for (let i = 1; i < contour.length; i++) {
     path += ` L${contour[i][1] * m} ${contour[i][0] * m}`;
   }
   path += ` Z" style="fill:rgb(${rgb})" />\n`
@@ -88,9 +88,9 @@ EPS.prototype.path = function(contour, pixel) {
   }
   path += " rg\n";
 
-  let move = contour.shift();
+  let move = contour[0];
   path += `${(move[1]) * m} ${(height - move[0]) * m} m`;
-  for (let i in contour) {
+  for (let i = 1; i < contour.length; i++) {
     path += ` ${contour[i][1] * m} ${(height - contour[i][0]) * m} l`;
   }
   path += ` z\nf\n`
