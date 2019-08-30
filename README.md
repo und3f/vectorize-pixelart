@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/und3f/vectorize-pixelart?branch=master)](https://travis-ci.org/und3f/vectorize-pixelart)
+[![Build Status](https://travis-ci.org/und3f/vectorize-pixelart.svg?branch=master)](https://travis-ci.org/und3f/vectorize-pixelart)
 
 vectorize-pixelart
 ==================
