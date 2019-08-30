@@ -4,7 +4,7 @@
   "description": "Convert raster pixel art graphics to vector",
   "main": "vectorize-pixelart.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tape test/*.js"
   },
   "directories": {
     "lib": "lib",
@@ -16,7 +16,9 @@
   "dependencies": {
     "pngjs": "^3.4.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "tape": "^4.11.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/und3f/vectorize-pixelart.git"
