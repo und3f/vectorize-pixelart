@@ -1,8 +1,11 @@
 *.png
 *.svg
+*.eps
 browser.js
 debug.txt
 other-code.js
 image-data.js
 bundle.js*
 *.tgz
+vectorize-pixelart-bundle.js
+.travis.yml

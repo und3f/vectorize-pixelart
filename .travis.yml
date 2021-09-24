@@ -1,6 +1,9 @@
 language: node_js
+before_script:
+  - npm install -g standard
+script: npm run lint && npm test
 node_js:
     - "10"
     - "14"
-    - "lts"
+    - "lts/*"
     - "node"

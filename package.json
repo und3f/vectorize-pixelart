@@ -4,7 +4,8 @@
   "description": "Convert raster pixel art graphics to vector",
   "main": "vectorize-pixelart.js",
   "scripts": {
-    "test": "tape test/*.js"
+    "test": "tape test/*.js",
+    "lint": "standard"
   },
   "directories": {
     "lib": "lib",
@@ -17,6 +18,7 @@
     "pngjs": "^3.4.0"
   },
   "devDependencies": {
+    "eslint": "^7.32.0",
     "tape": "^4.11.0"
   },
   "repository": {
