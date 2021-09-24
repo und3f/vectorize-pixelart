@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "eslint": "^7.32.0",
+    "standard": "^16.0.3",
     "tape": "^4.11.0"
   },
   "repository": {
