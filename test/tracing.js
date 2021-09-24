@@ -24,9 +24,7 @@ test('trace contours of sample image', (t) => {
     }
   })
 
-  t.ok(foundContours >= 6, 'Found at least 6 contours')
-
-  if (foundContours > 6) { t.comment('TODO: optimize algorithm to provide exacly 6 contours') }
+  t.ok(foundContours === 6, 'Found exacly 6 contours')
 
   t.end()
 })
