@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/und3f/vectorize-pixelart.svg?branch=master)](https://travis-ci.org/und3f/vectorize-pixelart)
+[![Build Status](https://travis-ci.com/und3f/vectorize-pixelart.svg?branch=master)](https://travis-ci.com/und3f/vectorize-pixelart)
 
 vectorize-pixelart
 ==================
@@ -79,7 +79,7 @@ callback gets one argument `(contour)` that contains array of contour points
 
 # Copyright
 
-Copyright (C) 2019 Sergii Zasenko
+Copyright (C) 2019-2021 Sergii Zasenko
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
