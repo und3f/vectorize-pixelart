@@ -1,4 +1,4 @@
-[![Build Status](https://app.travis-ci.com/und3f/vectorize-pixelart.svg?branch=master)](https://app.travis-ci.com/und3f/vectorize-pixelart)
+[![build-test](https://github.com/und3f/vectorize-pixelart/actions/workflows/main.yml/badge.svg)](https://github.com/und3f/vectorize-pixelart/actions/workflows/main.yml)
 
 vectorize-pixelart
 ==================
