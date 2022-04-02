@@ -1,33 +1,41 @@
 {
   "name": "vectorize-pixelart",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "Convert raster pixel art graphics to vector",
-  "main": "vectorize-pixelart.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
-    "test": "tape test/*.js",
-    "lint": "standard"
+    "build": "tsc",
+    "test": "ts-node node_modules/.bin/tape ./test/**",
+    "lint": "ts-standard",
+    "format": "ts-standard --fix"
   },
   "directories": {
-    "lib": "lib",
-    "example": "examples",
-    "test": "test"
+    "lib": "./lib",
+    "test": "./test"
   },
-  "author": "Sergii Zasenko",
+  "author": "Serhii Zasenko",
   "license": "GPL-3.0-or-later",
   "dependencies": {
     "pngjs": "^3.4.0"
   },
   "devDependencies": {
+    "@types/node": "^17.0.23",
+    "@types/pngjs": "^6.0.1",
+    "@types/tape": "^4.13.2",
     "eslint": "^7.32.0",
     "standard": "^16.0.3",
-    "tape": "^4.11.0"
+    "tape": "^4.15.0",
+    "ts-node": "^10.7.0",
+    "ts-standard": "^11.0.0",
+    "typescript": "^4.6.3"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/und3f/vectorize-pixelart.git"
   },
   "bin": {
-    "vectorize-pixelart": "vectorize-pixelart.js"
+    "vectorize-pixelart": "lib/vectorize-pixelart.js"
   },
   "keywords": [
     "vector",

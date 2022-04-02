@@ -1,8 +1,8 @@
-const test = require('tape')
-const utils = require('../utils')
+import * as test from 'tape'
+import {SVG, EPS} from '../src/utils'
 
 test('compose SVG image', (t) => {
-  const svg = new utils.SVG(101, 102)
+  const svg = new SVG(101, 102)
 
   const header = svg.header()
   t.ok(header.match(/<svg/), 'correct header')
@@ -17,7 +17,7 @@ test('compose SVG image', (t) => {
 })
 
 test('compose EPS image', (t) => {
-  const eps = new utils.EPS(101, 102)
+  const eps = new EPS(101, 102)
 
   const header = eps.header()
   t.ok(header.match(/%!PS-Adobe-3.0 EPSF-3.0/), 'correct header')

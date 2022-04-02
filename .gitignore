@@ -62,3 +62,6 @@ typings/
 
 # Ignore test files
 out.*
+
+lib/
+/*.png
