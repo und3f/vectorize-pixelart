@@ -13,11 +13,11 @@ Convert raster pixel art graphics to vector.
 
 You may vectorize PNG image to SVG using next command:
 
-    $ vectorize-pixelart Input.png Output.svg
+    $ vectorize-pixelart input.png output.svg
 
 Also EPS output is supported:
 
-    $ vectorize-pixelart Input.png Output.eps
+    $ vectorize-pixelart input.png output.eps
 
 # Online web usage
 
@@ -32,7 +32,7 @@ SVG might cause browser hang.
 
 # API
 
-Please check [vectorize-pixelart.js](vectorize-pixelart.js) code.
+Please check [vectorize-pixelart.js](src/vectorize-pixelart.ts) code.
 
 So, basic usage is next:
 
@@ -79,7 +79,7 @@ callback gets one argument `(contour)` that contains array of contour points
 
 # Copyright
 
-Copyright (C) 2019-2021 Sergii Zasenko
+Copyright (C) 2019-2022 Sergii Zasenko
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
