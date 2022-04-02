@@ -29,7 +29,7 @@ export class ContourTracing {
     this.visitedPixels.fill(false)
   }
 
-  findNeighborbood (y: number, x: number) {
+  findNeighborbood (y: number, x: number): number | undefined {
   // // console.log("findNeighborbood", y, x);
 
     for (let d = 0; d < DIRECTIONS.length; d++) {
@@ -39,13 +39,14 @@ export class ContourTracing {
       // console.log("\t", y1, x1);
       if (this.image.comparePixels(y, x, y1, x1)) {
       // Do not return visited pixels
-        if (!this.visitedPixels[y1 * this.image.width + x1]) { return d }
+        if (!this.visitedPixels[y1 * this.image.width + x1]) {
+          return d
+        }
       }
     }
-    return undefined
   }
 
-  addMoveVertexes (contour: Path, y: number, x: number, directionMove: number, directionPrevious: number) {
+  addMoveVertexes (contour: Path, y: number, x: number, directionMove: number, directionPrevious: number): void {
   // console.log("addMoveVertexes: ", y, x, directionMove, directionPrevious);
 
     for (let direction = directionPrevious; direction !== directionMove; direction = (direction + 1) % D_MOD) {
@@ -62,7 +63,7 @@ export class ContourTracing {
   // console.log("\t", contour[contour.length-1]);
   }
 
-  addRotationVertexes (contour: Path, y: number, x: number, currentDirection: number, targetDirection: number) {
+  addRotationVertexes (contour: Path, y: number, x: number, currentDirection: number, targetDirection: number): void {
   // console.log("addRotationVertexes: ", y, x, currentDirection, targetDirection);
 
     for (let direction = currentDirection; direction !== targetDirection; direction = (direction + 1) % D_MOD) {
@@ -72,7 +73,7 @@ export class ContourTracing {
     }
   }
 
-  addContour (contour: Path, y: number, x: number, startDirection: number, endDirection: number) {
+  addContour (contour: Path, y: number, x: number, startDirection: number, endDirection: number): void {
   // console.log("addContour: ", y, x, startDirection, endDirection);
 
     if (startDirection === endDirection) { return }
@@ -84,7 +85,7 @@ export class ContourTracing {
     }
   }
 
-  traceContour (y0: number, x0: number) {
+  traceContour (y0: number, x0: number): Path {
     const image = this.image
     const width = this.image.width
     const height = this.image.height
@@ -138,20 +139,19 @@ export class ContourTracing {
 
     this.addContour(contour, y0, x0, lastDirection, neighborhoodDirection)
 
-    for (const i in trace) {
-      this.visitedPixels[trace[i]] = true
+    for (const pos of trace) {
+      this.visitedPixels[pos] = true
     }
 
     return contour
   }
 
-  traceContours (cb: ContourFoundCb) {
-    for (const i in this.visitedPixels) {
+  traceContours (cb: ContourFoundCb): void {
+    for (let i = 0; i < this.visitedPixels.length; i++) {
       if (this.visitedPixels[i]) { continue }
 
-      const index = parseInt(i)
-      const y0 = (index / this.image.width) | 0
-      const x0 = index % this.image.width
+      const y0 = (i / this.image.width) | 0
+      const x0 = i % this.image.width
       // console.log("Tracing", y0, x0);
       const contour = this.traceContour(y0, x0)
       // console.log("Found contour", contour);

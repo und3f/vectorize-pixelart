@@ -7,8 +7,8 @@
   "scripts": {
     "build": "tsc",
     "test": "ts-node node_modules/.bin/tape ./test/**",
-    "lint": "ts-standard",
-    "format": "ts-standard --fix"
+    "lint": "ts-standard src/",
+    "format": "ts-standard --fix src/"
   },
   "directories": {
     "lib": "./lib",

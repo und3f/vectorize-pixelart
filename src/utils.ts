@@ -26,19 +26,21 @@ abstract class Image {
 }
 
 export class SVG extends Image {
-  header () {
+  header (): string {
     return `\
 <?xml version="1.0" encoding="UTF-8" ?>
 <svg width="${this.width * this.multiplier}" height="${this.height * this.multiplier}" xmlns="http://www.w3.org/2000/svg">
 `
   }
 
-  footer () {
+  footer (): string {
     return '</svg>\n'
   }
 
-  pixel (y: number, x: number, pixel: Pixel) {
-    if (pixel[3] < 255) { return }
+  pixel (y: number, x: number, pixel: Pixel): string {
+    if (pixel[3] < 255) {
+      return ''
+    }
 
     const rgb = pixel.join(', ')
     return `\
@@ -47,7 +49,7 @@ width="${1 * this.multiplier}" height="${1 * this.multiplier}" \
 style="fill:rgba(${rgb})" />\n`
   }
 
-  path (contour: Path, pixel: Pixel) {
+  path (contour: Path, pixel: Pixel): string {
     const m = this.multiplier
     const rgb = pixel.join(', ')
 
@@ -63,7 +65,7 @@ style="fill:rgba(${rgb})" />\n`
 }
 
 export class EPS extends Image {
-  header () {
+  header (): string {
     return `\
 %!PS-Adobe-3.0 EPSF-3.0
 %%Creator: vectorize-pixelart (https://github.com/und3f/vectorize-pixelart)
@@ -84,7 +86,7 @@ export class EPS extends Image {
 `
   }
 
-  footer () {
+  footer (): string {
     return `\
 showpage
 %%Trailer
@@ -92,7 +94,7 @@ showpage
 `
   }
 
-  path (contour: Path, pixel: Pixel) {
+  path (contour: Path, pixel: Pixel): string {
     const m = this.multiplier
     const height = this.height
 
