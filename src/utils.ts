@@ -42,23 +42,23 @@ export class SVG extends Image {
       return ''
     }
 
-    const rgb = pixel.join(', ')
+    const rgba = pixel.join(', ')
     return `\
     <rect x="${x * this.multiplier}" y="${y * this.multiplier}" \
 width="${1 * this.multiplier}" height="${1 * this.multiplier}" \
-style="fill:rgba(${rgb})" />\n`
+style="fill:rgba(${rgba})" />\n`
   }
 
   path (contour: Path, pixel: Pixel): string {
     const m = this.multiplier
-    const rgb = pixel.join(', ')
+    const rgba = pixel.join(', ')
 
     const move = contour[0]
     let path = `  <path d="M ${move[1] * m} ${move[0] * m}`
     for (let i = 1; i < contour.length; i++) {
       path += ` L${contour[i][1] * m} ${contour[i][0] * m}`
     }
-    path += ` Z" style="fill:rgb(${rgb})" />\n`
+    path += ` Z" style="fill:rgba(${rgba})" />\n`
 
     return path
   }
