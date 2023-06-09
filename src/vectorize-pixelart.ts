@@ -6,7 +6,7 @@ import { SVG, EPS, PNGImageData, Path, Pixel } from './utils'
 import * as Process from 'process'
 import { ContourTracing } from './contour-tracing'
 
-const OutputFileFormats: {[_: string]: any} = {
+const OutputFileFormats: { [_: string]: any } = {
   svg: SVG,
   eps: EPS
 }

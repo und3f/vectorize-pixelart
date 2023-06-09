@@ -17,18 +17,18 @@
   "author": "Serhii Zasenko",
   "license": "GPL-3.0-or-later",
   "dependencies": {
-    "pngjs": "^3.4.0"
+    "pngjs": "^7.0.0"
   },
   "devDependencies": {
-    "@types/node": "^17.0.23",
+    "@types/node": "^20.2.5",
     "@types/pngjs": "^6.0.1",
-    "@types/tape": "^4.13.2",
-    "eslint": "^7.32.0",
-    "standard": "^16.0.3",
-    "tape": "^4.15.0",
-    "ts-node": "^10.7.0",
-    "ts-standard": "^11.0.0",
-    "typescript": "^4.6.3"
+    "@types/tape": "^5.6.0",
+    "eslint": "^8.42.0",
+    "standard": "^17.1.0",
+    "tape": "^5.6.3",
+    "ts-node": "^10.9.1",
+    "ts-standard": "^12.0.2",
+    "typescript": "^5.1.3"
   },
   "repository": {
     "type": "git",
