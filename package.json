@@ -1,6 +1,6 @@
 {
   "name": "vectorize-pixelart",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "Convert raster pixel art graphics to vector",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

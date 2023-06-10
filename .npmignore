@@ -5,6 +5,8 @@ browser.js
 bundle.js*
 *.tgz
 vectorize-pixelart-bundle.js
+vectorize-pixelart.js
 .travis.yml
+.github
 src
 tsconfig.json
