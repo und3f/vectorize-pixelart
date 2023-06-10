@@ -2,7 +2,7 @@
 
 import { createReadStream, createWriteStream } from 'fs'
 import { PNG } from 'pngjs'
-import { SVG, EPS, PNGImageData, Path, Pixel } from './utils'
+import { SVG, EPS, PNGImageData, Path, RGBA } from './utils'
 import * as Process from 'process'
 import { ContourTracing } from './contour-tracing'
 
@@ -11,7 +11,6 @@ const OutputFileFormats: { [_: string]: any } = {
   eps: EPS
 }
 
-const targetSize = 2 ** 23
 const inputFileName = Process.argv[2]
 const outputFileName: string = Process.argv[3]
 
@@ -31,7 +30,7 @@ createReadStream(inputFileName)
     // TODO check files exists
     const vectorOut = createWriteStream(outputFileName)
 
-    const pixelMultiplier = Math.sqrt(targetSize / (this.height * this.width))
+    const pixelMultiplier = 1
 
     const image = new PNGImageData(this)
 
@@ -39,8 +38,8 @@ createReadStream(inputFileName)
     vectorOut.write(vectorFormatter.header())
 
     const tracer = new ContourTracing(image)
-    tracer.traceContours((contour: Path, pixel: Pixel) => {
-      vectorOut.write(vectorFormatter.path(contour, pixel))
+    tracer.traceContours((contour: Path, color: RGBA) => {
+      vectorOut.write(vectorFormatter.path(contour, color))
     })
 
     vectorOut.write(vectorFormatter.footer())
