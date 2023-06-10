@@ -30,11 +30,9 @@ createReadStream(inputFileName)
     // TODO check files exists
     const vectorOut = createWriteStream(outputFileName)
 
-    const pixelMultiplier = 1
-
     const image = new PNGImageData(this)
 
-    const vectorFormatter = new VectorFormatterClass(this.height, this.width, pixelMultiplier)
+    const vectorFormatter = new VectorFormatterClass(this.height, this.width)
     vectorOut.write(vectorFormatter.header())
 
     const tracer = new ContourTracing(image)
