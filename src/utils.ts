@@ -4,11 +4,11 @@ import type { PNG } from 'pngjs'
 
 const DEFAULT_MULTIPLIER = 1
 
-export type Pixel = [number, number, number, number]
+export type RGBA = [number, number, number, number]
 export type Coord = [number, number]
 export type Path = Coord[]
 
-abstract class Image {
+export abstract class Image {
   protected readonly height: number
   protected readonly width: number
   protected readonly multiplier: number
@@ -22,7 +22,7 @@ abstract class Image {
   abstract header (): string
   abstract footer (): string
   // abstract pixel(y: number, x: number, pixel: Pixel): string | undefined
-  abstract path (contour: Path, pixel: Pixel): string
+  abstract path (contour: Path, pixel: RGBA): string
 }
 
 export class SVG extends Image {
@@ -37,7 +37,7 @@ export class SVG extends Image {
     return '</svg>\n'
   }
 
-  pixel (y: number, x: number, pixel: Pixel): string {
+  pixel (y: number, x: number, pixel: RGBA): string {
     if (pixel[3] < 255) {
       return ''
     }
@@ -49,7 +49,7 @@ width="${1 * this.multiplier}" height="${1 * this.multiplier}" \
 style="fill:rgba(${rgba})" />\n`
   }
 
-  path (contour: Path, pixel: Pixel): string {
+  path (contour: Path, pixel: RGBA): string {
     const m = this.multiplier
     const rgba = pixel.join(', ')
 
@@ -94,7 +94,7 @@ showpage
 `
   }
 
-  path (contour: Path, pixel: Pixel): string {
+  path (contour: Path, pixel: RGBA): string {
     const m = this.multiplier
     const height = this.height
 
@@ -143,8 +143,8 @@ export class PNGImageData {
     return true
   }
 
-  getPixel (y: number, x: number): Pixel {
+  getPixel (y: number, x: number): RGBA {
     const offset = (y * this.width + x) * BYTES_PER_PIXEL
-    return Array.prototype.slice.call(this.data, offset, offset + BYTES_PER_PIXEL) as Pixel
+    return Array.prototype.slice.call(this.data, offset, offset + BYTES_PER_PIXEL) as RGBA
   }
 }

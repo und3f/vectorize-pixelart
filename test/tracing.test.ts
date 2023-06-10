@@ -1,6 +1,6 @@
 import * as test from 'tape'
 import { ContourTracing } from '../src/contour-tracing'
-import { Coord, Path, PNGImageData } from '../src/utils'
+import { Coord, Path, RGBA, PNGImageData } from '../src/utils'
 
 test('trace contours of sample image', (t) => {
   const imageData = [
@@ -66,7 +66,7 @@ constructor (imageArray: number[], height: number, width: number) {
     return this.image[this.getOffset(y1, x1)] === this.image[this.getOffset(y2, x2)]
   }
 
-  getPixel (y: number, x: number) {
+  getPixel (y: number, x: number): RGBA {
     const gray = 255 * this.image[this.getOffset(y, x)]
     return [gray, gray, gray, 255]
   }
