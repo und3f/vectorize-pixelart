@@ -1,7 +1,7 @@
-import { Coord, Path, Pixel, PNGImageData } from './utils'
+import { Coord, Path, RGBA, PNGImageData } from './utils'
 
 type Direction = Coord
-type ContourFoundCb = (contour: Path, pixel: Pixel) => void
+type ContourFoundCb = (contour: Path, pixel: RGBA) => void
 
 const DIRECTIONS: Direction[] = [
   [1, 0],
@@ -74,8 +74,7 @@ export class ContourTracing {
   }
 
   addContour (contour: Path, y: number, x: number, startDirection: number, endDirection: number): void {
-  // console.log("addContour: ", y, x, startDirection, endDirection);
-
+    // console.log("addContour: ", y, x, startDirection, endDirection);
     if (startDirection === endDirection) { return }
 
     for (let direction = (startDirection + D_MOD - 1) % D_MOD, firstRun = true; firstRun || direction !== endDirection; direction = (direction + 1) % D_MOD, firstRun = false) {
